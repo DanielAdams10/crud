@@ -1,0 +1,39 @@
+$usernameErr = $passwordErr = $cpwdErr = "";
+                $user_name = $password = $cpwd = "";
+
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    if (empty($_POST["user_name"])) {
+                        $usernameErr = "Please enter Username.";
+                    } else {
+                        $user_name = test_input($_POST["user_name"]);
+                         // check if name only contains letters and whitespace
+                        if (!preg_match("/^[a-zA-Z-' ]*$/",$password)||  empty($user_name) || $user_name<0) {
+                        $usernameErr = "Only letters and number allowed";
+                    } else $usernameErr=0;
+                }   
+    
+                if (empty($_POST["password"])) {
+                    $passwordErr = "Please enter the password.";
+                } else {
+                    $password = test_input($_POST["password"]);
+                    // check if name only contains letters and whitespace
+                    if (!preg_match("/^[a-zA-Z-' ]*$/",$password) ||  empty($password) || $password<6) {
+                        $passwordErr = "Only letters and number allowed";
+                    } else $passwordErr=0;
+                }
+    
+                if($_POST["password"] !== $_POST["cpwd"]) {
+                    $cpwdErr = "Don't match password.";
+                } else {
+                    echo "Comfirm Password is right.";
+                }
+            }
+    
+        
+    
+            function test_input($data) {
+                $data = trim($data);
+                $data = stripslashes($data);
+                $data = htmlspecialchars($data);
+                return $data;
+            }
